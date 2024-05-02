@@ -1,19 +1,21 @@
 import React from 'react';
 import axios from 'axios';
 import './App.css';
+import Header from './Header';
+import { HashRouter as Router, Route } from 'react-router-dom/cjs/react-router-dom.min';
+import CheckoutTable from '../CheckoutTable/CheckoutTable';
 
+
+       
 function App() {
 
   return (
-    <div className='App'>
-      <header className='App-header'>
-        <h1 className='App-title'>Prime Pizza</h1>
-      </header>
+    <main> 
+    <Header/>
+    <CheckoutTable/>
+    </main>
+    
   
-      <img src='images/pizza_photo.png' />
-      <p>Pizza is great.</p>
-  
-    </div>
   );
 }
 
