@@ -94,7 +94,7 @@ dispatch({
                 checked={typeInput === 'Pickup'}
                 onChange={(event) => settypeInput(event.target.value)}
             />
-              <label htmlFor="deliveryType">Delivery</label>
+              <label htmlFor="deliveryType">Pick up</label>
             </div>
            </div>
            <button id="next1button" type="submit">NEXT</button>
