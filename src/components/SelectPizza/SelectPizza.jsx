@@ -1,17 +1,15 @@
-import { useEffect, useStore } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import SelectPizzaItem from "../SelectPizzaItem/SelectPizzaItem";
+import axios from "axios";
 
 function SelectPizza() {
 
-    const [ifAddPizzaEnabled, setIfAddPizzaEnabled] = useStore(true);
     const pizzas = useSelector(store => store.pizzas);
-    const total = useSelector(store => store.total);
-    const currentTotalLineItems = useSelector(store => 
-                store.currentTotalLineItems);
 
     const dispatch = useDispatch();
 
-    useEffect({
+    useEffect(() => {
         fetchPizzas();
     }, []);
 
@@ -22,40 +20,15 @@ function SelectPizza() {
         })
         .then(response => {
             console.log('Get of pizzas successful: ', response.data);
-            dispatchEvent({
-                type: 'SET_pizzas',
-                payload: response.data;
+            dispatch({
+                type: 'SET_PIZZAS',
+                payload: response.data
             })
         })
     }
 
-    const addPizza = (pizza) => {
-        //update total with the pizza.price
-        dispatch({
-            type: 'ADD_TO_TOTAL',
-            payload: pizza.price
-        })
-        //add this pizza data to my curentOrderlineItem
-        dispatch({
-            type: 'ADD_PIZZA_TO_ORDER',
-            payload: { id: pizza.id, qty: pizza.qty }
-        })
-        //switch the button to say remove
-        setIfAddPizzaEnabled(false);
-    }
+    const goToForm = () => {
 
-    const removePizza = (pizza) => {
-        //update total with the pizza.price
-        dispatch({
-            type: 'SUBTRACT_FROM_TOTAL',
-            payload: pizza.price
-        })
-        //add this pizza data to my curentOrderlineItem
-        dispatch({
-            type: 'REMOVE_PIZZA_FROM_ORDER'
-        })
-        //switch the button to say remove
-        setIfAddPizzaEnabled(true);
     }
 
     return(
@@ -63,19 +36,13 @@ function SelectPizza() {
         <h2>Step 1: Select Your Pizza</h2>
         <section>
             {pizzas.map(pizza => {
+                console.log(JSON.stringify(pizza));
                 return (
-                    <>
-                        <h3>{pizza.name}</h3>
-                        <p>{pizza.description}</p>
-                        <p>pizza.price</p>
-                        <div>{ ifAddPizzaEnabled ? 
-                            <button onClick={addPizza(pizza)}>Add</button> :
-                            <button onClick={removePizza}>Remove</button>}
-                        </div>
-                        <button onClick={goToForm}>Next</button>
-                    </>
+                    <SelectPizzaItem pizza={pizza} />
+              
                 )
             })}
+                <button onClick={goToForm}>Next</button>
         </section>
         </>
 

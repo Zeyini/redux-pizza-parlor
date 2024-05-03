@@ -4,18 +4,12 @@ import logger from 'redux-logger';
 
 // Be sure to replace this reducer! 🙂
 const pizzas = (state = [], action) => {
-  return state;
-}
-
-const total = (state=0, action) => { 
-  if (action.type === 'ADD_TO_TOTAL') {
-    let totalCost = state + action.payload;
-    return totalCost;
-  } else if (action.type === 'SUBTRACT_FROM_TOTAL') {
-    return 
+  if (action.type === "SET_PIZZAS") {
+    return action.payload;
   }
   return state;
 }
+
 
 const currentOrderForm = (state = [], action) => {
   if (action.type === 'SET_USER_INPUT_VALUES') {
@@ -34,13 +28,23 @@ const currentOrderlineItem = (state = [], action) => {
   if (action.type === 'ADD_PIZZA_TO_ORDER') {
     return [...state, action.payload];
   }
+  if (action.type === 'REMOVE_PIZZA_FROM_ORDER') {
+    let removePizza = action.payload;
+    let newPizzaArray = state.filter((pizza) => {
+      if (removePizza.id !== pizza.id) {
+        return true;
+      } else {
+        return false;
+      }
+    })
+    return newPizzaArray;
+  }
   return state;
 }
 
 const store = createStore(
   combineReducers({
     pizzas, 
-    total,
     currentOrderForm,
     currentOrderlineItem
   }),

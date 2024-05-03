@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import './App.css';
 import CustomerForm from './CustomerForm';
+import SelectPizza from '../SelectPizza/SelectPizza';
 
 function App() {
 
@@ -11,6 +12,7 @@ function App() {
       <header className='App-header'>
         <h1 className='App-title'>Prime Pizza</h1>
       </header>
+      <SelectPizza />
       <CustomerForm />
      
       <p>Pizza is great.</p>
